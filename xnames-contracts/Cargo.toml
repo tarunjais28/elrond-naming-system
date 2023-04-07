@@ -1,0 +1,7 @@
+[workspace]
+members = [
+    "price_oracle",
+    "price_oracle/meta",
+    "xn-nft",
+    "xn-nft/meta",
+]

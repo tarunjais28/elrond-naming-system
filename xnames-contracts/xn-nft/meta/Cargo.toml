@@ -1,0 +1,14 @@
+[package]
+name = "xn-nft-meta"
+version = "0.0.0"
+authors = [ "Tarun Jaiswal <tarunjais28@gmail.com>"]
+edition = "2018"
+publish = false
+
+[dev-dependencies]
+
+[dependencies.xn-nft]
+path = ".."
+
+[dependencies.elrond-wasm-debug]
+version = "0.38.0"

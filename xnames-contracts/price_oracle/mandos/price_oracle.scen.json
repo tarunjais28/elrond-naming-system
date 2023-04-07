@@ -1,0 +1,141 @@
+{
+    "name": "price_oracle",
+    "steps": [
+        {
+            "step": "setState",
+            "accounts": {
+                "address:owner": {
+                    "nonce": "1",
+                    "balance": "123,000,000"
+                },
+                "address:myself": {
+                    "nonce": "0",
+                    "balance": "122,000,000"
+                },
+                "sc:price_oracle": {
+                    "code": "file:../output/price_oracle.wasm",
+                    "nonce": "0",
+                    "balance": "0"
+                }
+            },
+            "newAddresses": [
+                {
+                    "creatorAddress": "address:owner",
+                    "creatorNonce": "1",
+                    "newAddress": "sc:price_oracle"
+                }
+            ]
+        },
+        {
+            "step": "scDeploy",
+            "id": "deploy",
+            "tx": {
+                "from": "address:myself",
+                "contractCode": "file:../output/price_oracle.wasm",
+                "arguments": [],
+                "gasLimit": "5,000,000",
+                "gasPrice": "0"
+            },
+            "expect": {
+                "out": [],
+                "status": "",
+                "logs": [],
+                "gas": "*",
+                "refund": "*"
+            }
+        },
+        {
+            "step": "scCall",
+            "txId": "tx-id",
+            "tx": {
+                "from": "address:myself",
+                "to": "sc:price_oracle",
+                "egldValue": "0",
+                "function": "set_price",
+                "arguments": [
+                    "1",
+                    "100,000,000",
+                    ["biguint:1,000,000|u8:2", "biguint:900,000|u8:3"],
+                    "100,000"
+                ],
+                "gasLimit": "5,000,000",
+                "gasPrice": "0"
+            },
+            "expect": {
+                "out": [],
+                "status": "*",
+                "message": "",
+                "gas": "*",
+                "refund": "*"
+            }
+        },
+        {
+            "step": "scQuery",
+            "txId": "query-id",
+            "tx": {
+                "to": "sc:price_oracle",
+                "function": "get_price",
+                "arguments": [
+                    "u8:1"
+                ]
+            },
+            "expect": {
+                "out": [
+                    "100,000,000"
+                ],
+                "status": ""
+            }
+        },
+        {
+            "step": "scQuery",
+            "txId": "query-id",
+            "tx": {
+                "to": "sc:price_oracle",
+                "function": "get_price",
+                "arguments": [
+                    "u8:2"
+                ]
+            },
+            "expect": {
+                "out": [
+                    "1,000,000"
+                ],
+                "status": ""
+            }
+        },
+        {
+            "step": "scQuery",
+            "txId": "query-id",
+            "tx": {
+                "to": "sc:price_oracle",
+                "function": "get_price",
+                "arguments": [
+                    "u8:3"
+                ]
+            },
+            "expect": {
+                "out": [
+                    "900,000"
+                ],
+                "status": ""
+            }
+        },
+        {
+            "step": "scQuery",
+            "txId": "query-id",
+            "tx": {
+                "to": "sc:price_oracle",
+                "function": "get_price",
+                "arguments": [
+                    "u8:4"
+                ]
+            },
+            "expect": {
+                "out": [
+                    "100,000"
+                ],
+                "status": ""
+            }
+        }
+    ]
+}

@@ -1,0 +1,12 @@
+[package]
+name = "common"
+version = "0.0.1"
+authors = [ "Tarun Jaiswal <tarunjais28@gmail.com>"]
+edition = "2018"
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies.elrond-wasm]
+version = "=0.37.0"
+features = ["esdt-token-payment-legacy-decode",]
